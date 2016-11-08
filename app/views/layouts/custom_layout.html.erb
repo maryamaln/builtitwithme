@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Builditwithme</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  </head>
+
+  <body>
+  	<nav class="navbar navbar-default navbar-css">
+	  <div class="container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a style="font-weight: bold;" class="navbar-brand" href="#">BuildItWithMe</a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav navbar-right navbar-right-css ">
+	       <li role="presentation"><a href="/all_users">Users</a></li>
+            <li role="presentation"><a href="/all_categories">Categories</a></li>
+            <li role="presentation class="active" "><a href="/all_products"> All Products</a></li>
+            <li role="presentation"><a href="/my_products"> My Products</a></li>
+            <% if cookies[:user_id] %>
+            <div class="dropdown dropdown-nav" style="float:right">
+              <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><%= cookies[:first_name] %>
+              <span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a href="/logout">Logout</a></li>
+                <li><a href="/users/edit/<%=cookies[:user_id]%>">Edit</a></li>
+                <li><a href="/delete/<%=cookies[:user_id]%>">Delete</a></li>
+              </ul>
+            </div>
+          <% end %>
+	      </ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+    <%= yield %>
+    <nav class="navbar navbar-default navbar-css-footer" id="footer">
+	  <div class="container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">Build With Me 2016</a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav navbar-right">
+	        <li><a href="#">Company</a></li>
+	        <li><a href="#">Services</a></li>
+	        <li><a href="#">Work</a></li>
+	        <li><a href="#">Blog</a></li>
+	        <li><a href="#">Contact Us</a></li>
+	      </ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+#We are using Postgresql here
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host:     localhost
+  username: pguser
+  password: pguser
+  port:     5432
+  pool:     5
+  timeout: 5000
+  reaping_frequency: 10
+
+development:
+  <<: *default
+  database: builtitwithme-dev
+
+production: &production
+  <<: *default
+  database: builtitwithme-prod
+
+
+test:
+  <<: *default
+  database: builtitwithme-test
