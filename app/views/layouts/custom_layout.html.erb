@@ -28,10 +28,14 @@
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav navbar-right navbar-right-css ">
-	      <% @user = User.find(cookies[:user_id]) %>
-	      <% if @user.is_admin == true %>
-	       	<li role="presentation"><a href="/all_users">Users</a></li>
-	      <% end %>
+	      <% if cookies[:user_id] %>
+	      	<% @user = User.find(cookies[:user_id]) %>
+	      	<% if @user.is_admin == true  %>
+	       		<li role="presentation"><a href="/all_users">Users</a></li>
+	      	<% end %>
+	      <% else %>
+	      	<li role="presentation"><a href="/users">Login</a></li>
+	      <% end %>	
             <li role="presentation"><a href="/all_ideas">Ideas</a></li>
             <li role="presentation class="active" "><a href="/contact_us">Contact us</a></li>
             <!-- <li role="presentation"><a href="/my_products"> My Products</a></li> -->

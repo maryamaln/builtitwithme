@@ -1,5 +1,5 @@
 class IdeasController < ApplicationController
-	before_action :authenticate_user
+	before_action :authenticate_user,:except => [:index,:all_ideas]
 	layout 'custom_layout', :only => [:index,:show,:all_ideas]
 	def index
 		@ideas = Idea.all

@@ -52,9 +52,9 @@ class UsersController < ApplicationController
   def delete
     @user = User.find(params[:id])
     @user.destroy
-    cookies[:user_id]=user.id
-    cookies[:user_name]=user.user_name
-    redirect_to "/all_users"
+    cookies.delete(:user_id)
+    cookies.delete(:user_name)
+    redirect_to "/all_ideas"
   end
 
   def edit
