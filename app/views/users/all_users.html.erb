@@ -24,29 +24,31 @@
 											</thead>
 											<tbody>
 												<% @users.each do |u| %>
-												<tr>
-													<td>
-														<img class="img-user" src="/assets/user_icon_sm.png" alt="">
-														<a href="/users/<%=u.id%>" class="user-link"><%=u.first_name%></a>
-													</td>
-													<td>
-														<%=u.created_at.to_date%>
-													</td>
-													<td class="text-center">
-														<span class="label label-default"><%=u.user_name %></span>
-													</td>
-													<td>
-														<a href="#"><%= u.email%></a>
-													</td>
-													<td style="width: 20%; float:left 	;">
-														<a href="/delete/<%=u.id%>" class="table-link danger">
-															<span class="fa-stack">
-																<i class="fa fa-square fa-stack-2x"></i>
-																<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-															</span>
-														</a>
-													</td>
-												</tr>
+												<% if u.is_admin == false %>
+													<tr>
+														<td>
+															<img class="img-user" src="/assets/user_icon_sm.png" alt="">
+															<a href="/users/<%=u.id%>" class="user-link"><%=u.first_name%></a>
+														</td>
+														<td>
+															<%=u.created_at.to_date%>
+														</td>
+														<td class="text-center">
+															<span class="label label-default"><%=u.user_name %></span>
+														</td>
+														<td>
+															<a href="#"><%= u.email%></a>
+														</td>
+														<td style="width: 20%; float:left 	;">
+															<a href="/delete/<%=u.id%>" class="table-link danger">
+																<span class="fa-stack">
+																	<i class="fa fa-square fa-stack-2x"></i>
+																	<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+																</span>
+															</a>
+														</td>
+													</tr>
+												<% end %>
 												<%end%>
 											</tbody>
 										</table>

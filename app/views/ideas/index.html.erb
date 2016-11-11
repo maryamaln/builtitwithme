@@ -23,7 +23,9 @@
                 class="glyphicon glyphicon-th"></span>Designer</a>
         </div>
         <div class="create-new-div" style="float:right;">
-        	<a class="btn btn-primary btn-create-idea">New Idea</a>
+            <% if cookies[:user_id] %>
+        	   <a class="btn btn-primary btn-create-idea">New Idea</a>
+            <% end %>
         </div>
     </div>
     <div id="products" class="row list-group">
@@ -117,12 +119,17 @@
                 {title: title,description: description,skills_description: skill_description,platform: platform,help_needed:help_needed},
             //url: '/class_sessions/'+data.id+'/edit?schedule_id=1',
             error: function(data){
-            	alert("Failure");
+                debugger
+            	window.location = "/all_ideas"
+                //alert("Successfully created");
+                
             },
             success: function(data) {
+                debugger
                 if(data.message == "Successfully created"){
-                    alert("Successfully created");
-                    window.location = window.location
+                    window.location = "/all_ideas"
+                    //alert("Successfully created");
+                    
                 }
                 else{
                     alert(data.message)
