@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   #To create admin:
   # User.create(first_name: "admin",last_name: "admin",email: "admin@admin.com",password:"admin123",address: "Lahore",is_admin: true)
   before_action :authenticate_user,only: [:all_users]
+  # before_action :authenticate_admin,only: [:all_users]
   layout 'custom_layout', :only => [:all_users,:show]
   def index
     # if !cookies[:user_id].nil? && !(cookies[:user_id]=="")
@@ -25,7 +26,7 @@ class UsersController < ApplicationController
       cookies[:user_name]=user.user_name
       # session[:user_id] = user.id
       # session[:first_name]=user.first_name
-      redirect_to "/register"
+      redirect_to "/all_ideas"
     else
       flash[:notice] = "Invalid Email or password"
       flash[:color]= "invalid"
@@ -51,8 +52,8 @@ class UsersController < ApplicationController
   def delete
     @user = User.find(params[:id])
     @user.destroy
-    session[:user_id] = ""
-    session[:first_name]=""
+    cookies[:user_id]=user.id
+    cookies[:user_name]=user.user_name
     redirect_to "/all_users"
   end
 

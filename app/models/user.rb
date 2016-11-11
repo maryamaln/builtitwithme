@@ -8,4 +8,6 @@ class User < ApplicationRecord
   validates_length_of :password, :in => 6..20, :on => :create
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: { with: email_regex }, uniqueness: { case_sensitive: false }
+  has_many :ideas
+  has_many :comments
 end

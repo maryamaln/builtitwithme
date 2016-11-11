@@ -1,0 +1,136 @@
+<div class="container">
+    <div class="well well-sm">
+        <strong>Ideas</strong>
+        <div class="btn-group">
+            <a href="/all_ideas/newest" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th">
+            </span>Newest
+            </a>
+            <a href="/all_ideas/oldest" id="grid" class="btn btn-default btn-sm"><span
+                class="glyphicon glyphicon-th"></span>Oldest</a>
+            <a href="/all_ideas/nameasc" id="grid" class="btn btn-default btn-sm"><span
+                class="glyphicon glyphicon-th"></span>Name(Ascending)</a>
+            <a href="/all_ideas/namedesc" id="grid" class="btn btn-default btn-sm"><span
+                class="glyphicon glyphicon-th"></span>Name(Descending)</a>
+            <a href="/all_ideas/ios" id="grid" class="btn btn-default btn-sm"><span
+                class="glyphicon glyphicon-th"></span>iOS</a>
+            <a href="/all_ideas/android" id="grid" class="btn btn-default btn-sm"><span
+                class="glyphicon glyphicon-th"></span>Android</a>
+            <a href="/all_ideas/web" id="grid" class="btn btn-default btn-sm"><span
+                class="glyphicon glyphicon-th"></span>Web</a>
+            <a href="/all_ideas/developer" id="grid" class="btn btn-default btn-sm"><span
+                class="glyphicon glyphicon-th"></span>Develper</a>
+            <a href="/all_ideas/designer" id="grid" class="btn btn-default btn-sm"><span
+                class="glyphicon glyphicon-th"></span>Designer</a>
+        </div>
+        <div class="create-new-div" style="float:right;">
+        	<a class="btn btn-primary btn-create-idea">New Idea</a>
+        </div>
+    </div>
+    <div id="products" class="row list-group">
+        <% @ideas.each do |idea| %>
+        <div class="item idea-item col-xs-4 col-lg-4">
+            <div class="thumbnail">
+                <img class="group list-group-image idea-image" src="/assets/ideas.jpg" alt="" />
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        <%= idea.title%></h4>
+                    <p class="group inner list-group-item-text">
+                        <%= idea.description %>.</p>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <a class="btn btn-success btn-ideas" href="/ideas/<%=idea.id %>">More Info</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% end %>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="create-idea-modal" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">New Idea</h4>
+      </div>
+      <div class="modal-body">
+      	<div class="row">
+      		<div class="col-md-6 col-md-offset-3">
+		        <form >
+				  <div class="form-group">
+				    <label for="exampleInputEmail1">Title</label>
+				    <input type="text" class="form-control" id="idea-title" placeholder="Title">
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputPassword1">Description</label>
+				    <input type="textarea" class="form-control" id="idea-description" placeholder="Description">
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputPassword1">Skills Description</label>
+				    <input type="textarea" class="form-control" id="idea-skill-description" placeholder="Skills Description">
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputPassword1">Platform</label>
+				    <select class="form-control" id="idea-platform">
+					  <option value="iOS">iOS</option>
+					  <option value="Android">Android</option>
+					  <option value="Web">Web</option>
+					</select>
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputPassword1">Help Needed</label>
+				    <select class="form-control" id="idea-help-needed">
+					  <option value="Developer">Developer</option>
+					  <option value="Designer">Designer</option>
+					  <option value="Both">Both</option>
+					</select>
+				  </div>
+				  <hr>
+				  <button type="submit" class="btn btn-primary submit-idea">Submit</button>
+				</form>
+			</div>
+		</div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/javascript">
+	$('.btn-create-idea').click(function(){
+		 $('#create-idea-modal').modal('show');
+	});
+	$('.submit-idea').click(function(){
+		var title = $('#idea-title').val();
+		var description = $('#idea-description').val();
+		var skill_description = $('#idea-skill-description').val();
+		var platform = $( '#idea-platform option:selected' ).text();
+		var help_needed = $( '#idea-help-needed option:selected').text();
+		$.ajax({
+            url: '/ideas',
+            type: "POST",
+            dataType: 'json',
+            data:
+                {title: title,description: description,skills_description: skill_description,platform: platform,help_needed:help_needed},
+            //url: '/class_sessions/'+data.id+'/edit?schedule_id=1',
+            error: function(data){
+            	alert("Failure");
+            },
+            success: function(data) {
+                if(data.message == "Successfully created"){
+                    alert("Successfully created");
+                    window.location.href=window.location.href;
+                }
+                else{
+                    alert(data.message)
+                    $('#create-idea-modal').modal('show')
+                    //alert("After show")
+                }
+            }
+        });
+		
+	});
+</script>

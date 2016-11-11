@@ -1,0 +1,75 @@
+<div class="container">
+<div id="content" class="row">
+<div class="col-md-6 col-md-offset-3">
+<h2><%= @idea.title %></h2>
+<ul class="sections">
+ <li>
+ <div style="float: right">
+ 
+ </div>
+ <h3>Description</h3>
+ <%=@idea.description %><br style="clear:right">
+ </li>
+
+ <li>
+ <div style="float: right;"></div>
+ <h3>Skills Description:</h3>
+  
+<%= @idea.skills_description %>
+<br style="clear:right">
+ </li>
+<br>
+ <li>
+ <div style="float: right">
+ 
+ </div>
+ <h3>Platform</h3>
+ <%=@idea.platform %><br style="clear:right">
+ </li>
+
+<li>
+ <div style="float: right">
+ 
+ </div>
+ <h3>Help Needed</h3>
+ <% if @idea.help_needed == "Both" %>
+     <ul>
+          <li>Developer</li>
+          <li>Designer</li>
+     </ul>
+ <% else %>
+     <%= @idea.help_needed %>
+ <% end %>
+ <%=@idea.platform %><br style="clear:right">
+ </li>
+
+ <div class="comments">
+ <h3>Comments:</h3>
+ <ul>
+ <% @idea.comments.each do |c| %>
+ <li>
+ <div class="comment">
+     <h5><%=c.user.user_name%> => <%=c.body%></h5>
+     <p></p>
+ </div>
+ </li>
+ <% end %>
+ </ul>
+ <div class="create-comment">
+     <%= form_for @comment,html:{class:"form-horizontal"} do  |f| %>
+          <div class="form-group">
+               <div class="cols-sm-10 col-sm-offset-1">
+                    <%= f.text_field :body,class: "form-control",:placeholder => "Email" %>
+                    <span></span>
+               </div>
+               <%= f.hidden_field :idea_id ,value: @idea.id %>
+               <%= f.submit "Submit", class: "btn btn-primary comment-btn"%>
+          </div>
+     <% end %>
+ </div>
+ </div>
+</ul>
+</div>
+</div>
+<br><br>
+</div>

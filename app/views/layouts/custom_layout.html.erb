@@ -7,6 +7,7 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css">
 
   </head>
 
@@ -27,17 +28,19 @@
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav navbar-right navbar-right-css ">
-	       <li role="presentation"><a href="/all_users">Users</a></li>
-            <li role="presentation"><a href="/all_categories">Categories</a></li>
-            <li role="presentation class="active" "><a href="/all_products"> All Products</a></li>
-            <li role="presentation"><a href="/my_products"> My Products</a></li>
+	      <% @user = User.find(cookies[:user_id]) %>
+	      <% if @user.is_admin == true %>
+	       	<li role="presentation"><a href="/all_users">Users</a></li>
+	      <% end %>
+            <li role="presentation"><a href="/all_ideas">Ideas</a></li>
+            <li role="presentation class="active" "><a href="/contact_us">Contact us</a></li>
+            <!-- <li role="presentation"><a href="/my_products"> My Products</a></li> -->
             <% if cookies[:user_id] %>
             <div class="dropdown dropdown-nav" style="float:right">
               <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><%= cookies[:first_name] %>
               <span class="caret"></span></button>
               <ul class="dropdown-menu">
                 <li><a href="/logout">Logout</a></li>
-                <li><a href="/users/edit/<%=cookies[:user_id]%>">Edit</a></li>
                 <li><a href="/delete/<%=cookies[:user_id]%>">Delete</a></li>
               </ul>
             </div>
@@ -62,13 +65,13 @@
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	      <ul class="nav navbar-nav navbar-right">
+	      <!-- <ul class="nav navbar-nav navbar-right">
 	        <li><a href="#">Company</a></li>
 	        <li><a href="#">Services</a></li>
 	        <li><a href="#">Work</a></li>
 	        <li><a href="#">Blog</a></li>
 	        <li><a href="#">Contact Us</a></li>
-	      </ul>
+	      </ul> -->
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
 	</nav>
