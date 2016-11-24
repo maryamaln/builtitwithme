@@ -9,27 +9,27 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 0, User.count
   end
 
-  test "User should be created without  email" do
+  test "User should not be created without  email" do
   	user = User.new(first_name: 'Sammy', last_name: 'Sams', address: 'lahore',user_name:'ume') 
     assert_not user.save
   end
 
-  test "User should be created without  first_name" do
+  test "User should not be created without  first_name" do
   	user = User.new(email: 'ume19@hotmail.com', last_name: 'Sams', address: 'lahore',user_name:'ume') 
     assert_not user.save
   end
 
-  test "User should be created without  last_name" do
+  test "User should not be created without  last_name" do
   	user = User.new(email: 'ume19@hotmail.com', first_name: 'Sams', address: 'lahore',user_name:'ume') 
     assert_not user.save
   end
 
-  test "User should be created without  address" do
+  test "User should not be created without  address" do
   	user = User.new(first_name: 'Sammy',email: 'ume19@hotmail.com', first_name: 'Sams', user_name:'ume') 
     assert_not user.save
   end
 
-  test "User should be created without  user_name" do
+  test "User should not be created without  user_name" do
   	user = User.new(first_name: 'Sammy',email: 'ume19@hotmail.com', first_name: 'Sams', address:'Pak') 
     assert_not user.save
   end
